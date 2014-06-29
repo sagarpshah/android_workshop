@@ -16,8 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.momo.internalstoragedemo.R;
-
 public class MainActivity extends Activity {
 
 	private ListView listView;
