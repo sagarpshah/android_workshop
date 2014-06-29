@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">DatabaseDemo</string>
+    <string name="name">Name</string>
+    <string name="marks">Marks</string>
+    <string name="add_details">Add Details</string>
+
+</resources>
