@@ -20,6 +20,8 @@ public class MainActivity extends Activity {
 
 	private EditText editText;
 
+	private EditText editText2;
+
 	private Button enterButton;
 
 	private ArrayAdapter<String> adapter;
@@ -34,25 +36,27 @@ public class MainActivity extends Activity {
 
 		listView = (ListView) findViewById(R.id.listView);
 		editText = (EditText) findViewById(R.id.fileName);
+		editText2 = (EditText) findViewById(R.id.fileName2);
 		enterButton = (Button) findViewById(R.id.enterButton);
 
 		enterButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				String text = editText.getText().toString();
+				String fileName = editText.getText().toString();
+				String fileContext = editText2.getText().toString();
 
 				FileOutputStream fos;
 				try {
-					fos = MainActivity.this.openFileOutput(text,
+					fos = MainActivity.this.openFileOutput(fileName,
 							Context.MODE_PRIVATE);
-					fos.write(text.getBytes());
+					fos.write(fileContext.getBytes());
 					fos.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
-				fileList.add(text);
+				fileList.add(fileName);
 				adapter.notifyDataSetChanged();
 
 				editText.setText("");
