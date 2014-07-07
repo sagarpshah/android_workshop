@@ -2,18 +2,18 @@ package com.momo.databasedemo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseManager extends SQLiteOpenHelper {
 
-	private Context context;
 	private static String DB_NAME = "SampleDatabase";
 	private static int DB_VERSION = 1;
 	public static final String TABLE_STUDENT = "Student";
 	private static final String ID = "Id";
-	private static final String NAME = "Name";
-	private static final String MARKS = "Marks";
+	public static final String NAME = "Name";
+	public static final String MARKS = "Marks";
 	private static final String TABLE_STUDENT_CREATE = "CREATE TABLE "
 			+ TABLE_STUDENT + " (" + ID + " INTEGER NOT NULL PRIMARY KEY, "
 			+ NAME + " TEXT NOT NULL, " + MARKS + " TEXT NOT NULL);";
@@ -39,7 +39,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
 	public DatabaseManager(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
-		this.context = context;
 	}
 
 	@Override
@@ -53,12 +52,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
 		this.onCreate(db);
 	}
 
+	public Cursor getValues() {
+		Cursor c = db.query(TABLE_STUDENT, null, null, null, null, null, null);
+		return c;
+	}
+
 	public boolean addValuesIntoTable(String name, String marks) {
 
 		boolean inserted = false;
 		ContentValues values = new ContentValues();
-		values.put("Name", name);
-		values.put("Marks", marks);
+		values.put(NAME, name);
+		values.put(MARKS, marks);
 		try {
 			long inserted_row = db.insert(TABLE_STUDENT, null, values);
 
@@ -70,9 +74,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 			exception.printStackTrace();
 		}
 
-		// TODO Auto-generated method stub
 		return inserted;
-
 	}
 
 	public void closeDatabase() {
